@@ -125,15 +125,17 @@ const QuizComponent: React.FC = () => {
       </div>
 
       {showResult ? (
-        <div>
-          <h2>결과</h2>
-          <p>
-            점수: {score} / {data.questions.length}
-          </p>
-          <button onClick={handleResetQuiz}>다시 시작</button>
-        </div>
-      ) : (
-        <div className="content-wrapper">
+      <div className="result">
+        <h2>결과</h2>
+        <p className="result-score">
+          점수: {score} / {data.questions.length}
+        </p>
+        <button className="reset-button" onClick={handleResetQuiz}>
+          다시 시작
+        </button>
+      </div>
+    ) : (
+          <div className="content-wrapper">
           <div className="question-wrapper">
             <p>{questionContent}</p>
           </div>
