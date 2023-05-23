@@ -41,14 +41,11 @@ const QuizComponent: React.FC = () => {
   useEffect(() => {
     if (timer === 10 && !showHint) {
       setShowHint(true);
-    }
-    else if (timer === 20 && showHint) {
+    } else if (timer === 20 && showHint) {
       setShowHint(false);
-    }
-    else if (timer === 30 && !showHint) {
+    } else if (timer === 30 && !showHint) {
       setShowHint(true);
     }
-
   }, [timer, showHint]);
 
   useEffect(() => {
@@ -81,6 +78,8 @@ const QuizComponent: React.FC = () => {
   const handleNextQuestion = (): void => {
     if (selectedOption === currentQuestionData.answer) {
       setScore((prevScore) => prevScore + 1);
+    } else {
+      window.alert('틀렸습니다!'); // Show alert if the selected option is incorrect
     }
 
     if (currentQuestion + 1 < data.questions.length) {
@@ -111,7 +110,9 @@ const QuizComponent: React.FC = () => {
       {showResult ? (
         <div>
           <h2>결과</h2>
-          <p>점수: {score} / {data.questions.length}</p>
+          <p>
+            점수: {score} / {data.questions.length}
+          </p>
           <button onClick={handleResetQuiz}>다시 시작</button>
         </div>
       ) : (
@@ -135,7 +136,6 @@ const QuizComponent: React.FC = () => {
             </ul>
           </div>
 
-
           <button
             className={`next-button ${selectedOption === null ? 'disabled' : ''}`}
             onClick={handleNextQuestion}
@@ -146,7 +146,6 @@ const QuizComponent: React.FC = () => {
           <div className="hint-wrapper">
             {timer >= 5 && showHint && <p>{currentQuestionData.hint}</p>}
           </div>
-
         </div>
       )}
     </div>
