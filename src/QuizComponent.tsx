@@ -155,15 +155,38 @@ const QuizComponent: React.FC = () => {
         </div>
       )}
 
-      <Modal
-        isOpen={showModal}
-        onRequestClose={() => setShowModal(false)}
-        contentLabel={modalTitle}
-      >
-        <h2>{modalTitle}</h2>
-        <p>{modalContent}</p>
-        <button onClick={() => setShowModal(false)}>확인</button>
-      </Modal>
+<Modal
+  isOpen={showModal}
+  onRequestClose={() => setShowModal(false)}
+  contentLabel={modalTitle}
+  style={{
+    overlay: {
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    content: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      maxWidth: '400px',
+      width: '80%',
+      margin: '0 auto',
+      padding: '20px',
+      borderRadius: '8px',
+      backgroundColor: '#fff',
+      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+    },
+  }}
+>
+  <h2>{modalTitle}</h2>
+  <p>{modalContent}</p>
+  <button
+    className="modal-button"
+    onClick={() => setShowModal(false)}
+  >
+    확인
+  </button>
+</Modal>
     </div>
   );
 };
