@@ -14,7 +14,6 @@ interface QuizData {
   questions: Question[];
 }
 
-
 const QuizComponent: React.FC = () => {
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -85,7 +84,7 @@ const QuizComponent: React.FC = () => {
       setScore((prevScore) => prevScore + 1);
     } else {
       setModalTitle('오답');
-      setModalContent('힌트 : '+currentQuestionData.hint);
+      setModalContent('힌트: ' + currentQuestionData.hint);
       setShowModal(true);
     }
 
@@ -105,10 +104,6 @@ const QuizComponent: React.FC = () => {
     setScore(0);
     setShowResult(false);
     setTimer(0);
-  };
-
-  const closeModal = (): void => {
-    setShowModal(false);
   };
 
   return (
@@ -160,6 +155,15 @@ const QuizComponent: React.FC = () => {
         </div>
       )}
 
+      <Modal
+        isOpen={showModal}
+        onRequestClose={() => setShowModal(false)}
+        contentLabel={modalTitle}
+      >
+        <h2>{modalTitle}</h2>
+        <p>{modalContent}</p>
+        <button onClick={() => setShowModal(false)}>확인</button>
+      </Modal>
     </div>
   );
 };
