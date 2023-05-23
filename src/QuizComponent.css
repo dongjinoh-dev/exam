@@ -1,27 +1,5 @@
 @media (max-width: 600px) {
   .content-wrapper {
-    width: 100%;
-  }
-
-  .question-wrapper {
-    width: 90%;
-  }
-
-  .hint-wrapper {
-    width: 90%;
-  }
-
-  .options-wrapper {
-    width: 90%;
-  }
-  .text-center {
-    text-align: center;
-  }
-  li {
-    text-align: center;
-  }
-
-  .content-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
