@@ -1,89 +1,87 @@
-@media (max-width: 600px) {
-  .content-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    height: 100vh;
-    width: 100%;
-    margin: 0 auto;
-  }
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  width: 100%;
+  margin: 0 auto;
+}
 
-  .question-wrapper {
-    margin-bottom: 2rem;
-    display: flex;
-    justify-content: center;
-    width: 80%;
-  }
-  .hint-wrapper {
-    margin-bottom: 2rem;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-  .options-wrapper {
-    margin-bottom: 2rem;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
+.question-wrapper {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+}
+.hint-wrapper {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.options-wrapper {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 
-  .options-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
+.options-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
 
-  .option-button {
-    display: inline-block;
-    margin: 5px auto; /* Updated to center horizontally */
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background: linear-gradient(to bottom, #121212, #303030);
-    cursor: pointer;
-    transition: background 0.3s ease;
-    color: #ffffff;
-  }
+.option-button {
+  display: inline-block;
+  margin: 5px auto; /* Updated to center horizontally */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(to bottom, #121212, #303030);
+  cursor: pointer;
+  transition: background 0.3s ease;
+  color: #ffffff;
+}
 
-  .option-button:hover {
-    background: linear-gradient(to bottom, #f2f2f2, #d0d0d0);
-  }
+.option-button:hover {
+  background: linear-gradient(to bottom, #f2f2f2, #d0d0d0);
+}
 
-  .option-button.selected {
-    background: linear-gradient(to bottom, #64b5f6, #2196f3);
-    color: #ffffff;
-  }
+.option-button.selected {
+  background: linear-gradient(to bottom, #64b5f6, #2196f3);
+  color: #ffffff;
+}
 
-  .disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
-  .next-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background: linear-gradient(to bottom, #2196f3, #1976d2);
-    color: #ffffff;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
+.next-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(to bottom, #2196f3, #1976d2);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
 
-  .next-button.disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+.next-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
-  .next-button:hover {
-    background: linear-gradient(to bottom, #1976d2, #1565c0);
-  }
+.next-button:hover {
+  background: linear-gradient(to bottom, #1976d2, #1565c0);
+}
 
-  .next-button:focus {
-    outline: none;
-  }
+.next-button:focus {
+  outline: none;
+}
 
-  .next-button:active {
-    transform: translateY(1px);
-  }
+.next-button:active {
+  transform: translateY(1px);
 }
