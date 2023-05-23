@@ -8,6 +8,7 @@ interface Question {
   options: string[];
   answer: string;
   hint: string;
+  hint2: string;
 }
 
 interface QuizData {
@@ -24,7 +25,9 @@ const QuizComponent: React.FC = () => {
   const [shuffledOptions, setShuffledOptions] = useState<string[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [modalTitle, setModalTitle] = useState<string>('');
-  const [modalContent, setModalContent] = useState<string>('');
+  const [modalContent, setModalContent] = useState<React.ReactNode>(null);
+  const [hintContent, setHintContent] = useState<React.ReactNode>(null);
+  const [questionContent, setQuestionContent] = useState<React.ReactNode>(null);
 
   const data: QuizData = quizData;
 
@@ -50,7 +53,13 @@ const QuizComponent: React.FC = () => {
     } else if (timer === 30 && !showHint) {
       setShowHint(true);
     }
-  }, [timer, showHint]);
+    setHintContent(
+      <div dangerouslySetInnerHTML={{ __html: currentQuestionData.hint }} />
+    );
+    setQuestionContent(
+      <div dangerouslySetInnerHTML={{ __html: currentQuestionData.question }} />
+    );
+}, [timer, showHint]);
 
   useEffect(() => {
     if (currentQuestion < data.questions.length) {
@@ -84,7 +93,9 @@ const QuizComponent: React.FC = () => {
       setScore((prevScore) => prevScore + 1);
     } else {
       setModalTitle('오답');
-      setModalContent('힌트: ' + currentQuestionData.hint);
+      setModalContent(
+        <div dangerouslySetInnerHTML={{ __html: currentQuestionData.hint2 }} />
+      );
       setShowModal(true);
     }
 
@@ -124,7 +135,7 @@ const QuizComponent: React.FC = () => {
       ) : (
         <div className="content-wrapper">
           <div className="question-wrapper">
-            <p>{currentQuestionData.question}</p>
+            <p>{questionContent}</p>
           </div>
 
           <div className="options-wrapper">
@@ -150,43 +161,40 @@ const QuizComponent: React.FC = () => {
             다음 문제
           </button>
           <div className="hint-wrapper">
-            {timer >= 5 && showHint && <p>{currentQuestionData.hint}</p>}
+            {timer >= 5 && showHint && <p>{hintContent}</p>}
           </div>
         </div>
       )}
 
-<Modal
-  isOpen={showModal}
-  onRequestClose={() => setShowModal(false)}
-  contentLabel={modalTitle}
-  style={{
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    content: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      maxWidth: '400px',
-      width: '80%',
-      margin: '0 auto',
-      padding: '20px',
-      borderRadius: '8px',
-      backgroundColor: '#fff',
-      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-    },
-  }}
->
-  <h2>{modalTitle}</h2>
-  <p>{modalContent}</p>
-  <button
-    className="modal-button"
-    onClick={() => setShowModal(false)}
-  >
-    확인
-  </button>
-</Modal>
+      <Modal
+        isOpen={showModal}
+        onRequestClose={() => setShowModal(false)}
+        contentLabel={modalTitle}
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          },
+          content: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            maxWidth: '400px',
+            width: '80%',
+            margin: '0 auto',
+            padding: '20px',
+            borderRadius: '8px',
+            backgroundColor: '#fff',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+          },
+        }}
+      >
+        <h2>{modalTitle}</h2>
+        {modalContent}
+        <button className="modal-button" onClick={() => setShowModal(false)}>
+          확인
+        </button>
+      </Modal>
     </div>
   );
 };
