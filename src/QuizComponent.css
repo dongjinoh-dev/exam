@@ -11,7 +11,7 @@ li {
   align-items: center;
   justify-content: flex-start;
   height: 100vh;
-  width: 600px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -19,19 +19,19 @@ li {
   margin-bottom: 2rem;
   display: flex;
   justify-content: center;
-  width: 400px;
+  width: 80%;
 }
 .hint-wrapper {
   margin-bottom: 2rem;
   display: flex;
   justify-content: center;
-  width: 400px;
+  width: 100%;
 }
 .options-wrapper {
   margin-bottom: 2rem;
   display: flex;
   justify-content: center;
-  width: 400px;
+  width: 100%;
 }
 
 .options-list {
