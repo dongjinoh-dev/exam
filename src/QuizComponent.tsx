@@ -44,6 +44,18 @@ const QuizComponent: React.FC = () => {
 
   const data: QuizData = quizData;
 
+  const ModalContent: React.FC<ModalContentProps> = ({ title, content, onClose }) => {
+    return (
+      <div className="modal-content">
+        <h2>{title}</h2>
+        <p>{content}</p>
+        <div className="modal-button-container">
+          <button onClick={onClose}>확인</button>
+        </div>
+      </div>
+    );
+  };
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setTimer((prevTimer) => prevTimer + 1);
