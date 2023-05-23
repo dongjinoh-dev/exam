@@ -160,9 +160,6 @@ const QuizComponent: React.FC = () => {
         </div>
       )}
 
-      <Modal isOpen={showModal} onRequestClose={closeModal}>
-        <ModalContent title={modalTitle} content={modalContent} onClose={closeModal} />
-      </Modal>
     </div>
   );
 };
