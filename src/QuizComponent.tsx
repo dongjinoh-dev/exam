@@ -22,12 +22,10 @@ interface ModalContentProps {
 
 const ModalContent: React.FC<ModalContentProps> = ({ title, content, onClose }) => {
   return (
-    <div className="modal-content">
+    <div>
       <h2>{title}</h2>
       <p>{content}</p>
-      <div className="modal-button-container">
-        <button onClick={onClose}>확인</button>
-      </div>
+      <button onClick={onClose}>확인</button>
     </div>
   );
 };
@@ -102,7 +100,7 @@ const QuizComponent: React.FC = () => {
       setScore((prevScore) => prevScore + 1);
     } else {
       setModalTitle('오답');
-      setModalContent('힌트 : ' + currentQuestionData.hint);
+      setModalContent('힌트 : '+currentQuestionData.hint);
       setShowModal(true);
     }
 
@@ -177,19 +175,7 @@ const QuizComponent: React.FC = () => {
         </div>
       )}
 
-      <Modal
-        isOpen={showModal}
-        onRequestClose={closeModal}
-        style={{
-          content: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            textAlign: 'center',
-          },
-        }}
-      >
+      <Modal isOpen={showModal} onRequestClose={closeModal}>
         <ModalContent title={modalTitle} content={modalContent} onClose={closeModal} />
       </Modal>
     </div>
