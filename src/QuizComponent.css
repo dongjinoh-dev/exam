@@ -53,6 +53,7 @@ li {
 
 .option-button:hover {
   background: linear-gradient(to bottom, #f2f2f2, #d0d0d0);
+  color: #ffffff;
 }
 
 .option-button.selected {
