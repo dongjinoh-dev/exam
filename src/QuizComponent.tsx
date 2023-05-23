@@ -191,7 +191,10 @@ const QuizComponent: React.FC = () => {
       >
         <h2>{modalTitle}</h2>
         {modalContent}
-        <button className="modal-button" onClick={() => setShowModal(false)}>
+        <button className="modal-button" onClick={() => {
+          setShowModal(false);
+          setTimer(0);
+          }}>
           확인
         </button>
       </Modal>
