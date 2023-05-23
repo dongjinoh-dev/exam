@@ -100,7 +100,7 @@ const QuizComponent: React.FC = () => {
       setScore((prevScore) => prevScore + 1);
     } else {
       setModalTitle('오답');
-      setModalContent('다음 문제로 넘어갑니다.');
+      setModalContent('힌트 : '+currentQuestionData.hint);
       setShowModal(true);
     }
 
