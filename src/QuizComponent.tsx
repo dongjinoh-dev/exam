@@ -14,21 +14,6 @@ interface QuizData {
   questions: Question[];
 }
 
-interface ModalContentProps {
-  title: string;
-  content: string;
-  onClose: () => void;
-}
-
-const ModalContent: React.FC<ModalContentProps> = ({ title, content, onClose }) => {
-  return (
-    <div>
-      <h2>{title}</h2>
-      <p>{content}</p>
-      <button onClick={onClose}>확인</button>
-    </div>
-  );
-};
 
 const QuizComponent: React.FC = () => {
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
