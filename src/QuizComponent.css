@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: flex-start;
   height: 100vh;
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -18,13 +18,13 @@
   margin-bottom: 2rem;
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: 90%;
 }
 .options-wrapper {
   margin-bottom: 2rem;
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: 90%;
 }
 
 .options-list {
