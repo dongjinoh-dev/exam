@@ -9,6 +9,8 @@ interface Question {
   answer: string;
   hint: string;
   hint2: string;
+  correctCount: number;
+  answerTimes: number[];
 }
 
 interface QuizData {
@@ -59,7 +61,7 @@ const QuizComponent: React.FC = () => {
     setQuestionContent(
       <div dangerouslySetInnerHTML={{ __html: currentQuestionData.question }} />
     );
-}, [timer, showHint]);
+  }, [timer, showHint]);
 
   useEffect(() => {
     if (currentQuestion < data.questions.length) {
@@ -91,6 +93,15 @@ const QuizComponent: React.FC = () => {
   const handleNextQuestion = (): void => {
     if (selectedOption === currentQuestionData.answer) {
       setScore((prevScore) => prevScore + 1);
+
+      // 문제를 맞춘 시간과 맞춘 횟수를 기록
+      const currentTime = new Date().getTime();
+      const updatedQuestion = {
+        ...currentQuestionData,
+        correctCount: currentQuestionData.correctCount + 1,
+        answerTimes: [...currentQuestionData.answerTimes, currentTime],
+      };
+      data.questions[currentQuestion] = updatedQuestion;
     } else {
       setModalTitle('오답');
       setModalContent(
@@ -125,17 +136,17 @@ const QuizComponent: React.FC = () => {
       </div>
 
       {showResult ? (
-      <div className="result">
-        <h2>결과</h2>
-        <p className="result-score">
-          점수: {score} / {data.questions.length}
-        </p>
-        <button className="reset-button" onClick={handleResetQuiz}>
-          다시 시작
-        </button>
-      </div>
-    ) : (
-          <div className="content-wrapper">
+        <div className="result">
+          <h2>결과</h2>
+          <p className="result-score">
+            점수: {score} / {data.questions.length}
+          </p>
+          <button className="reset-button" onClick={handleResetQuiz}>
+            다시 시작
+          </button>
+        </div>
+      ) : (
+        <div className="content-wrapper">
           <div className="question-wrapper">
             <p>{questionContent}</p>
           </div>
@@ -145,7 +156,9 @@ const QuizComponent: React.FC = () => {
               {shuffledOptions.map((option: string, index: number) => (
                 <li key={index}>
                   <button
-                    className={`option-button ${selectedOption === option ? 'selected' : ''}`}
+                    className={`option-button ${
+                      selectedOption === option ? 'selected' : ''
+                    }`}
                     onClick={() => handleOptionSelect(option)}
                   >
                     {option}
@@ -156,7 +169,9 @@ const QuizComponent: React.FC = () => {
           </div>
 
           <button
-            className={`next-button ${selectedOption === null ? 'disabled' : ''}`}
+            className={`next-button ${
+              selectedOption === null ? 'disabled' : ''
+            }`}
             onClick={handleNextQuestion}
             disabled={selectedOption === null}
           >
@@ -193,10 +208,13 @@ const QuizComponent: React.FC = () => {
       >
         <h2>{modalTitle}</h2>
         {modalContent}
-        <button className="modal-button" onClick={() => {
-          setShowModal(false);
-          setTimer(0); 
-          }}>
+        <button
+          className="modal-button"
+          onClick={() => {
+            setShowModal(false);
+            setTimer(0);
+          }}
+        >
           확인
         </button>
       </Modal>
