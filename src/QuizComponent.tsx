@@ -9,8 +9,6 @@ interface Question {
   answer: string;
   hint: string;
   hint2: string;
-  correctCount: number;
-  answerTimes: number[];
 }
 
 interface QuizData {
@@ -30,6 +28,7 @@ const QuizComponent: React.FC = () => {
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
   const [hintContent, setHintContent] = useState<React.ReactNode>(null);
   const [questionContent, setQuestionContent] = useState<React.ReactNode>(null);
+  const [answerTimes, setAnswerTimes] = useState<number[]>([]); // 맞춘 시간 기록 배열
 
   const data: QuizData = quizData;
 
@@ -93,15 +92,7 @@ const QuizComponent: React.FC = () => {
   const handleNextQuestion = (): void => {
     if (selectedOption === currentQuestionData.answer) {
       setScore((prevScore) => prevScore + 1);
-
-      // 문제를 맞춘 시간과 맞춘 횟수를 기록
-      const currentTime = new Date().getTime();
-      const updatedQuestion = {
-        ...currentQuestionData,
-        correctCount: currentQuestionData.correctCount + 1,
-        answerTimes: [...currentQuestionData.answerTimes, currentTime],
-      };
-      data.questions[currentQuestion] = updatedQuestion;
+      setAnswerTimes((prevAnswerTimes) => [...prevAnswerTimes, timer]); // 문제를 맞춘 시간을 기록
     } else {
       setModalTitle('오답');
       setModalContent(
@@ -126,6 +117,7 @@ const QuizComponent: React.FC = () => {
     setScore(0);
     setShowResult(false);
     setTimer(0);
+    setAnswerTimes([]); // 맞춘 시간 배열 초기화
   };
 
   return (
