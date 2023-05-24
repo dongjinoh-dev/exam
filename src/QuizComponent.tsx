@@ -214,7 +214,6 @@ const QuizComponent: React.FC = () => {
 
           {showHint && (
             <div className="hint-wrapper">
-              <h3>힌트</h3>
               <p>{hintContent}</p>
             </div>
           )}
