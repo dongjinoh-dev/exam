@@ -137,14 +137,10 @@ const QuizComponent: React.FC = () => {
       return "방금 전";
     } else if (minutes === 1) {
       return "1분 전";
-    } else if (minutes <= 5) {
-      handleNextQuestion(); // 다음 문제로 넘어가는 함수 호출
-      return `${minutes}분 전`;
     } else {
-      return "5분 이상";
+      return `${minutes}분 전`;
     }
   };
-  
 
   return (
     <div className="quiz-wrapper">
