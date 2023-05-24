@@ -128,6 +128,20 @@ const QuizComponent: React.FC = () => {
     setTimer(0);
   };
 
+  const formatTime = (time: number): string => {
+    const currentTime = Math.round(Date.now() / 1000);
+    const elapsedSeconds = currentTime - time;
+    const minutes = Math.floor(elapsedSeconds / 60);
+
+    if (minutes === 0) {
+      return "방금 전";
+    } else if (minutes === 1) {
+      return "1분 전";
+    } else {
+      return `${minutes}분 전`;
+    }
+  };
+
   return (
     <div className="quiz-wrapper">
       <div className="header">
@@ -141,13 +155,15 @@ const QuizComponent: React.FC = () => {
             <div className="average-time">
               평균 시간:{" "}
               {currentQuestionData.answerTimes.length > 0
-                ? `${(
-                    currentQuestionData.answerTimes.reduce(
-                      (total: number, time: number) => total + time,
-                      0
-                    ) / currentQuestionData.answerTimes.length
-                  ).toFixed(2)}ms`
-                : "0ms"}
+                ? formatTime(
+                    Math.round(
+                      currentQuestionData.answerTimes.reduce(
+                        (total: number, time: number) => total + time,
+                        0
+                      ) / currentQuestionData.answerTimes.length / 1000
+                    )
+                  )
+                : "0분 전"}
             </div>
           </div>
         )}
@@ -193,15 +209,19 @@ const QuizComponent: React.FC = () => {
             onClick={handleNextQuestion}
             disabled={selectedOption === null}
           >
-            다음 문제
+            다음
           </button>
-          <div className="hint-wrapper">
-            {timer >= 5 && showHint && <p>{hintContent}</p>}
-          </div>
+
+          {showHint && (
+            <div className="hint-wrapper">
+              <h3>힌트</h3>
+              <p>{hintContent}</p>
+            </div>
+          )}
         </div>
       )}
 
-      <Modal
+<Modal
         isOpen={showModal}
         onRequestClose={() => setShowModal(false)}
         contentLabel={modalTitle}
