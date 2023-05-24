@@ -28,7 +28,6 @@ const QuizComponent: React.FC = () => {
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
   const [hintContent, setHintContent] = useState<React.ReactNode>(null);
   const [questionContent, setQuestionContent] = useState<React.ReactNode>(null);
-  const [answerTimes, setAnswerTimes] = useState<number[]>([]); // 맞춘 시간 기록 배열
 
   const data: QuizData = quizData;
 
@@ -60,7 +59,7 @@ const QuizComponent: React.FC = () => {
     setQuestionContent(
       <div dangerouslySetInnerHTML={{ __html: currentQuestionData.question }} />
     );
-  }, [timer, showHint]);
+}, [timer, showHint]);
 
   useEffect(() => {
     if (currentQuestion < data.questions.length) {
@@ -92,7 +91,6 @@ const QuizComponent: React.FC = () => {
   const handleNextQuestion = (): void => {
     if (selectedOption === currentQuestionData.answer) {
       setScore((prevScore) => prevScore + 1);
-      setAnswerTimes((prevAnswerTimes) => [...prevAnswerTimes, timer]); // 문제를 맞춘 시간을 기록
     } else {
       setModalTitle('오답');
       setModalContent(
@@ -117,7 +115,6 @@ const QuizComponent: React.FC = () => {
     setScore(0);
     setShowResult(false);
     setTimer(0);
-    setAnswerTimes([]); // 맞춘 시간 배열 초기화
   };
 
   return (
@@ -128,17 +125,17 @@ const QuizComponent: React.FC = () => {
       </div>
 
       {showResult ? (
-        <div className="result">
-          <h2>결과</h2>
-          <p className="result-score">
-            점수: {score} / {data.questions.length}
-          </p>
-          <button className="reset-button" onClick={handleResetQuiz}>
-            다시 시작
-          </button>
-        </div>
-      ) : (
-        <div className="content-wrapper">
+      <div className="result">
+        <h2>결과</h2>
+        <p className="result-score">
+          점수: {score} / {data.questions.length}
+        </p>
+        <button className="reset-button" onClick={handleResetQuiz}>
+          다시 시작
+        </button>
+      </div>
+    ) : (
+          <div className="content-wrapper">
           <div className="question-wrapper">
             <p>{questionContent}</p>
           </div>
@@ -148,9 +145,7 @@ const QuizComponent: React.FC = () => {
               {shuffledOptions.map((option: string, index: number) => (
                 <li key={index}>
                   <button
-                    className={`option-button ${
-                      selectedOption === option ? 'selected' : ''
-                    }`}
+                    className={`option-button ${selectedOption === option ? 'selected' : ''}`}
                     onClick={() => handleOptionSelect(option)}
                   >
                     {option}
@@ -161,9 +156,7 @@ const QuizComponent: React.FC = () => {
           </div>
 
           <button
-            className={`next-button ${
-              selectedOption === null ? 'disabled' : ''
-            }`}
+            className={`next-button ${selectedOption === null ? 'disabled' : ''}`}
             onClick={handleNextQuestion}
             disabled={selectedOption === null}
           >
@@ -200,13 +193,10 @@ const QuizComponent: React.FC = () => {
       >
         <h2>{modalTitle}</h2>
         {modalContent}
-        <button
-          className="modal-button"
-          onClick={() => {
-            setShowModal(false);
-            setTimer(0);
-          }}
-        >
+        <button className="modal-button" onClick={() => {
+          setShowModal(false);
+          setTimer(0); 
+          }}>
           확인
         </button>
       </Modal>
