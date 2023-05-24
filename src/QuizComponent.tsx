@@ -9,8 +9,8 @@ interface Question {
   answer: string;
   hint: string;
   hint2: string;
-  correctCount: number; // 추가: 맞춘 횟수를 기록하기 위한 필드
-  answerTimes: number[]; // 추가: 맞춘 시간을 기록하기 위한 필드
+  correctCount: number;
+  answerTimes: number[];
 }
 
 interface QuizData {
@@ -96,9 +96,11 @@ const QuizComponent: React.FC = () => {
 
       // 문제를 맞춘 시간과 맞춘 횟수를 기록
       const currentTime = new Date().getTime();
-      const updatedQuestion = { ...currentQuestionData };
-      updatedQuestion.correctCount += 1;
-      updatedQuestion.answerTimes.push(currentTime);
+      const updatedQuestion = {
+        ...currentQuestionData,
+        correctCount: currentQuestionData.correctCount + 1,
+        answerTimes: [...currentQuestionData.answerTimes, currentTime],
+      };
       data.questions[currentQuestion] = updatedQuestion;
     } else {
       setModalTitle('오답');
