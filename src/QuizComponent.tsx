@@ -150,10 +150,10 @@ const QuizComponent: React.FC = () => {
         {currentQuestionData && !showResult && (
           <div className="stats">
             <div className="correct-count">
-              맞힌 횟수: {currentQuestionData.correctCount}
+              학습 횟수: {currentQuestionData.correctCount}
             </div>
             <div className="average-time">
-              평균 시간:{" "}
+              맞힌 시간:{" "}
               {currentQuestionData.answerTimes.length > 0
                 ? formatTime(
                     Math.round(
