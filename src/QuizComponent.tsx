@@ -31,7 +31,7 @@ const QuizComponent: React.FC = () => {
   const [hintContent, setHintContent] = useState<React.ReactNode>(null);
   const [questionContent, setQuestionContent] = useState<React.ReactNode>(null);
 
-  const data: QuizData = quizData;
+  const data: QuizData = quizData as QuizData;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -133,6 +133,24 @@ const QuizComponent: React.FC = () => {
       <div className="header">
         <div className="timer">타이머: {timer}초</div>
         <div className="score">맞힌 개수: {score}</div>
+        {currentQuestionData && !showResult && (
+          <div className="stats">
+            <div className="correct-count">
+              맞힌 횟수: {currentQuestionData.correctCount}
+            </div>
+            <div className="average-time">
+              평균 시간:{" "}
+              {currentQuestionData.answerTimes.length > 0
+                ? `${(
+                    currentQuestionData.answerTimes.reduce(
+                      (total: number, time: number) => total + time,
+                      0
+                    ) / currentQuestionData.answerTimes.length
+                  ).toFixed(2)}ms`
+                : "0ms"}
+            </div>
+          </div>
+        )}
       </div>
 
       {showResult ? (
@@ -189,34 +207,22 @@ const QuizComponent: React.FC = () => {
         contentLabel={modalTitle}
         style={{
           overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
           },
           content: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            maxWidth: '400px',
-            width: '80%',
-            margin: '0 auto',
-            padding: '20px',
-            borderRadius: '8px',
             backgroundColor: '#fff',
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+            border: 'none',
+            borderRadius: '4px',
+            padding: '20px',
+            maxWidth: '400px',
+            margin: '0 auto',
+            textAlign: 'center',
           },
         }}
       >
         <h2>{modalTitle}</h2>
-        {modalContent}
-        <button
-          className="modal-button"
-          onClick={() => {
-            setShowModal(false);
-            setTimer(0);
-          }}
-        >
-          확인
-        </button>
+        <div className="modal-content">{modalContent}</div>
+        <button onClick={() => setShowModal(false)}>확인</button>
       </Modal>
     </div>
   );
