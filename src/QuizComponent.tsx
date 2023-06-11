@@ -93,7 +93,7 @@ const QuizComponent: React.FC = () => {
   const handleNextQuestion = (): void => {
     if (selectedOption === currentQuestionData.answer) {
       setScore((prevScore) => prevScore + 1);
-
+  
       // 문제를 맞춘 시간과 맞춘 횟수를 기록
       const currentTime = new Date().getTime();
       const updatedQuestion = {
@@ -109,23 +109,29 @@ const QuizComponent: React.FC = () => {
       );
       setShowModal(true);
     }
-
+  
     if (currentQuestion + 1 < data.questions.length) {
+      const contentWrapper = document.querySelector('.content-wrapper');
+      contentWrapper?.classList.add('next-page');
       setCurrentQuestion((prevQuestion) => prevQuestion + 1);
-      setSelectedOption(null); // Reset selected option
-      setShowHint(false); // Reset hint visibility
-      setTimer(0); // Reset timer
+      setSelectedOption(null);
+      setShowHint(false);
+      setTimer(0);
+    setTimeout(() => {
+        contentWrapper?.classList.remove('next-page');
+      }, 1000); // 애니메이션 시간(0.5초) 이후에 상태 업데이트
     } else {
       setShowResult(true);
     }
   };
-
+  
   const handleResetQuiz = (): void => {
     setCurrentQuestion(0);
     setSelectedOption(null);
     setScore(0);
     setShowResult(false);
     setTimer(0);
+    shuffleQuestions(); // 문제 순서를 섞음
   };
 
   const formatTime = (time: number): string => {
@@ -241,7 +247,7 @@ const QuizComponent: React.FC = () => {
       >
         <h2>{modalTitle}</h2>
         <div className="modal-content">{modalContent}</div>
-        <button onClick={() => setShowModal(false)}>확인</button>
+        <button className="modal-button" onClick={() => setShowModal(false)} >확인</button>
       </Modal>
     </div>
   );
